@@ -1,21 +1,73 @@
-import { invoke } from "@tauri-apps/api";
-import { NButton, NForm, NFormItem, NInput } from "naive-ui";
+import { dialog, invoke } from "@tauri-apps/api";
+import { NButton, NForm, NFormItem } from "naive-ui";
 import { defineComponent, ref } from "vue";
 const Greet = defineComponent({
   name: "Greet",
   emits: [],
   setup() {
-    const name = ref("");
     const greetMsg = ref("");
-    const greet = async () => {
-      greetMsg.value = await invoke("greet", { name: name.value });
-    };
+
     return () => {
       return (
         <NForm>
           <NFormItem>
-            <NInput placeholder={"Enter a name..."} v-model:value={name.value}></NInput>
-            <NButton onClick={greet}>Greet</NButton>
+            <input
+              onDragover={(e) => {
+                e.preventDefault();
+              }}
+              onDrop={(e) => {
+                console.log("Log-- ", e, "e");
+              }}
+              onChange={async (e) => {
+                console.log("Log-- ", e, "e");
+              }}
+              type="file"
+            />
+            <NButton
+              onClick={async () => {
+                const file = await dialog.open({
+                  directory: false,
+                  multiple: false,
+                });
+                greetMsg.value = await invoke("towebp", { name: file });
+              }}
+            >
+              towebp
+            </NButton>
+            <NButton
+              onClick={async () => {
+                const file = await dialog.open({
+                  directory: false,
+                  multiple: false,
+                });
+                console.log("Log-- ", file, "file");
+                greetMsg.value = await invoke("testffmpeg", { name: file });
+              }}
+            >
+              testffmpeg
+            </NButton>
+            <NButton
+              onClick={async () => {
+                greetMsg.value = ((await invoke("get_assets")) as any).join(
+                  "\\"
+                );
+
+                console.log("Log-- ", greetMsg.value, " greetMsg.value");
+              }}
+            >
+              get_assets
+            </NButton>
+            <NButton
+              onClick={async () => {
+                greetMsg.value = (
+                  (await invoke("get_last_assets")) as any
+                ).join("\\");
+
+                console.log("Log-- ", greetMsg.value, " greetMsg.value");
+              }}
+            >
+              get_last_assets
+            </NButton>
           </NFormItem>
           <NFormItem>
             <p>{greetMsg.value}</p>

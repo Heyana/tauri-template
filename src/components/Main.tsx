@@ -1,10 +1,10 @@
-import { defineComponent, onMounted, Ref, ref, watch, computed } from "vue";
 import { NLayout } from "naive-ui";
+import { defineComponent } from "vue";
 import Greet from "./Greet";
 const Main = defineComponent({
   name: "Main",
   emits: [],
-  setup(props) {
+  setup(_props) {
     return () => {
       return (
         <NLayout has-sider style="height: 100%">
