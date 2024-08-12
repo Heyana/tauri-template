@@ -1,0 +1,34 @@
+name: Rust Build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Rust
+        uses: actions/setup-rust@v1
+        with:
+          rust-version: "1.71.0" # 指定 Rust 版本
+
+      - name: Build
+        run: cargo build --release
+
+      - name: Run tests
+        run: cargo test
+
+      - name: Package
+        run: |
+          mkdir -p artifacts
+          cp target/release/your_executable_name artifacts/
+        # 替换 `your_executable_name` 为你项目的实际可执行文件名
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: rust-artifacts
+          path: artifacts/

@@ -14,15 +14,7 @@ tauri-build = { version = "1.5", features = [] }
 
 [dependencies]
 tauri = { version = "1.5", features = [ "dialog-all", "shell-open"] }
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
-ril = { version = "0.10.1", features = ["all"] }
-essi-ffmpeg = "0.2.0"
-ffmpeg-cli = "0.1.0"
-ffmpeg-sidecar = "1.1.0"
-ffmpeg-next = "7.0.4"
-regex = "1.10.6"
-rust_decimal = "1.35.0"
+magick_rust = "1.0.0"
 
 
 [features]

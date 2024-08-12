@@ -68,6 +68,17 @@ const Greet = defineComponent({
             >
               get_last_assets
             </NButton>
+            <NButton
+              onClick={async () => {
+                greetMsg.value = ((await invoke("test_libvips")) as any).join(
+                  "\\"
+                );
+
+                console.log("Log-- ", greetMsg.value, " greetMsg.value");
+              }}
+            >
+              test_libvips
+            </NButton>
           </NFormItem>
           <NFormItem>
             <p>{greetMsg.value}</p>
