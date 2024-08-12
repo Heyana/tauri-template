@@ -13,14 +13,22 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libgtk-3-dev libsoup2.4-dev
+          sudo apt-get install -y \
+            libgtk-3-dev \
+            libsoup2.4-dev \
+            libjavascriptcoregtk-4.0-dev \
+            libwebkit2gtk-4.0-dev \
+            libgdk-pixbuf2.0-dev
+
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
+
       - name: Build with Tauri
         run: |
           cd src-tauri
-          cargo build
+          cargo build --release --all-features
