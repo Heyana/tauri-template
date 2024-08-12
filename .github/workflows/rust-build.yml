@@ -13,7 +13,7 @@ jobs:
       - name: Set up Rust
         uses: actions/setup-rust@v1
         with:
-          rust-version: "1.71.0" # 指定 Rust 版本
+          rust-version: "1.80.0" # 指定 Rust 版本
 
       - name: Build
         run: cargo build --release
